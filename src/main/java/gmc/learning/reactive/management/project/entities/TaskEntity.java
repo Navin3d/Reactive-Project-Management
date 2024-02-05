@@ -1,4 +1,4 @@
-package gmc.learning.scala.management.project.entities;
+package gmc.learning.reactive.management.project.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import lombok.Data;
 
-@Document
+@Document(collection = "tasks")
 public @Data class TaskEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

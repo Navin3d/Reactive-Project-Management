@@ -1,4 +1,4 @@
-package gmc.learning.scala.management.project.entities;
+package gmc.learning.reactive.management.project.entities;
 
 import java.io.Serializable;
 import java.util.HashSet;

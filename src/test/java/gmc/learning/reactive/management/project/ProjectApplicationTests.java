@@ -1,4 +1,4 @@
-package gmc.learning.scala.management.project;
+package gmc.learning.reactive.management.project;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

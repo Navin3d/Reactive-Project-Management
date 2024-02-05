@@ -1,4 +1,4 @@
-package gmc.learning.scala.management.project.entities;
+package gmc.learning.reactive.management.project.entities;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -23,6 +23,8 @@ public @Data class ProjectEntity implements Serializable {
 	private String description;
 	
 	private String icon = "https://avatars.githubusercontent.com/u/71096790?v=4";
+	
+	private Boolean status;
 	
 	@DBRef
 	private Set<TaskEntity> tasks = new HashSet<>();
