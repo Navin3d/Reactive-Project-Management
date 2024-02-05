@@ -1,4 +1,4 @@
-package gmc.learning.reactive.management.project.repositories;
+package gmc.learning.reactive.management.project.dao;
 
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;

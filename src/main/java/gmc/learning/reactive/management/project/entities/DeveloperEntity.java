@@ -32,6 +32,8 @@ public @Data class DeveloperEntity implements Serializable {
 	
 	private String linkedInProfile;
 	
+	private String authProvider;
+		
 	@DBRef
 	private Set<TaskEntity> tasks = new HashSet<>();
 	
