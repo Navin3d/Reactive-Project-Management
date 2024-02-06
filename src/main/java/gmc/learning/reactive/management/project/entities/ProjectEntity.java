@@ -8,7 +8,6 @@ import java.util.Set;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
@@ -30,14 +29,11 @@ public @Data class ProjectEntity implements Serializable {
 	
 	private Boolean status = true;
 	
-	@DBRef
-	private Set<TaskEntity> tasks = new HashSet<>();
+	private Set<String> tasks = new HashSet<>();
 	
-	@DBRef
-	private Set<DeveloperEntity> requestedDevelopers = new HashSet<>();
+	private Set<String> requestedDevelopers = new HashSet<>();
 	
-	@DBRef
-	private Set<DeveloperEntity> developers = new HashSet<>();
+	private Set<String> developers = new HashSet<>();
 	
 	@CreatedBy
     private String createdBy;

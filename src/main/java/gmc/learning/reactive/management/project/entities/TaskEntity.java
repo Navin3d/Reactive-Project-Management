@@ -3,12 +3,11 @@ package gmc.learning.reactive.management.project.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
@@ -26,9 +25,11 @@ public @Data class TaskEntity implements Serializable {
 	
 	private String description;
 	
-	private List<String> comments = new ArrayList<>();
+	private Set<String> comments = new HashSet<>();
 	
 	private Boolean status = true;
+	
+	private String assignedTo;
 	
 	private LocalDate deadline;
 	
@@ -37,11 +38,5 @@ public @Data class TaskEntity implements Serializable {
 	
 	@CreatedDate
 	private LocalDateTime createdAt;
-	
-	@DBRef
-	private DeveloperEntity assignedTo;
-	
-	@DBRef
-	private ProjectEntity project;
 
 }

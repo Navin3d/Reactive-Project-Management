@@ -19,4 +19,9 @@ public class DeveloperServiceImpl implements DeveloperService {
 		return developerDao.findById(uniqueId);
 	}
 
+	@Override
+	public Mono<DeveloperEntity> save(DeveloperEntity developerEntity) {
+		return developerDao.save(developerEntity);
+	}
+
 }

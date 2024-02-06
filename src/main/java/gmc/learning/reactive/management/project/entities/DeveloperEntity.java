@@ -1,10 +1,7 @@
 package gmc.learning.reactive.management.project.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
@@ -33,14 +30,5 @@ public @Data class DeveloperEntity implements Serializable {
 	private String linkedInProfile;
 	
 	private String authProvider;
-		
-	@DBRef
-	private Set<TaskEntity> tasks = new HashSet<>();
-	
-	@DBRef
-	private Set<ProjectEntity> requestedProjects = new HashSet<>();
-	
-	@DBRef
-	private Set<ProjectEntity> projects = new HashSet<>();
 	
 }

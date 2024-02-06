@@ -7,4 +7,6 @@ public interface DeveloperService {
 
 	public Mono<DeveloperEntity> findOne(String uniqueId);
 	
+	public Mono<DeveloperEntity> save(DeveloperEntity developerEntity);
+	
 }

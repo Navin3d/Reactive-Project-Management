@@ -18,7 +18,7 @@ public class TaskDaoTest {
 
 	@Test
 	public void itShouldConnectDB() {
-		Flux<TaskEntity> tasks = taskDao.findByUser("string");
+		Flux<TaskEntity> tasks = taskDao.findByAssignedTo("string");
 		assertEquals(0, tasks.collectList().block().size());
 	}
 	
