@@ -28,7 +28,7 @@ public @Data class TaskEntity implements Serializable {
 	
 	private List<String> comments = new ArrayList<>();
 	
-	private Boolean status;
+	private Boolean status = true;
 	
 	private LocalDate deadline;
 	
@@ -42,6 +42,6 @@ public @Data class TaskEntity implements Serializable {
 	private DeveloperEntity assignedTo;
 	
 	@DBRef
-	private ProjectEntity belongsTo;
+	private ProjectEntity project;
 
 }

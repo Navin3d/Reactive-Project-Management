@@ -11,10 +11,11 @@ public interface ProjectService {
 	public Flux<ProjectEntity> findMany(Integer page, Integer size, Boolean status);
 	
 	public Mono<ProjectEntity> save(ProjectEntity project);
-	public Mono<ProjectEntity> saveTask(String projectId, TaskEntity task);
+	public Mono<ProjectEntity> addTask(TaskEntity task);
+	public Mono<ProjectEntity> updateTask(TaskEntity task);
+	public Mono<ProjectEntity> commentTask(TaskEntity task);
 	
-	public Mono<ProjectEntity> reOpenProject(String projectId, Boolean status);
-	public Mono<ProjectEntity> closeProject(String projectId, Boolean status);
+	public Mono<ProjectEntity> switchProjectStatus(String projectId);
 	
 	public Mono<ProjectEntity> requestJoin(String projectId, String userId);
 	public Mono<ProjectEntity> acceptJoinRequest(String projectId, String userId);

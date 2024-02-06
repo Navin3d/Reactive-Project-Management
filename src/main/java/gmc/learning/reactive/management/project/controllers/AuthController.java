@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gmc.learning.reactive.management.project.models.DeveloperModel;
 import gmc.learning.reactive.management.project.services.AuthService;
+import reactor.core.publisher.Mono;
 
 @RequestMapping(path = "/auth")
 @RestController
@@ -18,12 +19,12 @@ public class AuthController {
 	private AuthService authService;
 	
 	@PostMapping
-	private DeveloperModel registerUser(@RequestBody DeveloperModel newUser) {
+	private Mono<DeveloperModel> registerUser(@RequestBody DeveloperModel newUser) {
 		return authService.registerUser(newUser);
 	}
 	
 	@PutMapping
-	private DeveloperModel completeProfile(@RequestBody DeveloperModel newUser) {
+	private Mono<DeveloperModel> completeProfile(@RequestBody DeveloperModel newUser) {
 		return authService.completeProfile(newUser);
 	}
 
