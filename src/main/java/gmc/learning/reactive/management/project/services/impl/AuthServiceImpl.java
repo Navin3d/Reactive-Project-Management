@@ -1,9 +1,13 @@
 
 package gmc.learning.reactive.management.project.services.impl;
 
+import java.util.ArrayList;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import gmc.learning.reactive.management.project.dao.DeveloperDao;
@@ -15,9 +19,26 @@ import reactor.core.publisher.Mono;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-	@Autowired(required = true)
+	@Autowired
 	private DeveloperDao developerDao;
-
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Override
+	public Mono<UserDetails> findByUsername(String username) {
+		return developerDao.findByEmail(username)
+			       .map(u -> User
+			            .withUsername(username).password(u.getPassword())
+			            .authorities(new ArrayList<>())
+			            .accountExpired(false)
+			            .credentialsExpired(false)
+			            .disabled(false)
+			            .accountLocked(false)
+			            .build()
+			        );
+	}
+	
 	@Override
 	public Mono<DeveloperModel> registerUser(DeveloperModel developerModel) {
 		DeveloperEntity newUser = new DeveloperEntity();
@@ -25,7 +46,7 @@ public class AuthServiceImpl implements AuthService {
 		newUser.setEmail(developerModel.getEmail());
 		newUser.setAuthProvider(developerModel.getAuthProvider());
 		if (developerModel.getAuthProvider().equals("Native"))
-			newUser.setPassword(developerModel.getPassword());
+			newUser.setPassword(bCryptPasswordEncoder.encode(developerModel.getPassword()));
 		Function<DeveloperEntity, Mono<DeveloperModel>> saveAndConvert = saved -> {
 			developerModel.setId(saved.getId());
 			return Mono.just(developerModel);

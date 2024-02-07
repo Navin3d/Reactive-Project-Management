@@ -3,6 +3,13 @@ spring:
     compose:
       skip:
         in-tests: false
+      
+auth:
+  refresh-token: '864000000'
+  issuer: GMC
+  auth-url: /auth/login
+  expeiry: '8640000'
+  jwt-secret: anywaynavins3dnevereverhelpsomeoneunlesstheyaskforit
 
 settings:
   app:

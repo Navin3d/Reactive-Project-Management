@@ -42,7 +42,7 @@ Run the Spring Boot application using the following command:
 
 Once the application is running, access it in your web browser at [http://localhost:8080](http://localhost:8080).
 
-### Using Docker
+# For Docker
 To run the Project Management App using Docker, follow these steps:
 
 ```bash
