@@ -17,27 +17,19 @@ public class TaskServiceImpl implements TaskService {
 	
 	@Autowired
 	private ProjectDao projectDao;
-	
+
 	@Override
 	public Mono<TaskEntity> saveTask(String projectId, TaskEntity task) {
-		return taskDao.save(task)
-				.map(savedTask -> {
-					projectDao.findById(projectId)
-					.flatMap(foundProject -> {
-						foundProject.getTasks().add(savedTask.getId());
-						return projectDao.save(foundProject);
-					});
-					return savedTask;
-				});
+		return taskDao.save(task).flatMap(savedTask -> projectDao.pushToTasks(projectId, savedTask.getId()).thenReturn(savedTask));
 	}
 
 	@Override
-	public Mono<TaskEntity> commentTask(String id, String comment) {
+	public Mono<Void> commentTask(String id, String comment) {
 		return taskDao.pushToComments(id, comment);
 	}
 
 	@Override
-	public Mono<TaskEntity> updateStatus(String id, Boolean sttatus) {
+	public Mono<Void> updateStatus(String id, Boolean sttatus) {
 		return taskDao.updateField(id, sttatus);
 	}
 

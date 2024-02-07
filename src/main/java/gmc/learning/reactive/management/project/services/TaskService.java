@@ -6,7 +6,7 @@ import reactor.core.publisher.Mono;
 public interface TaskService {
 	
 	public Mono<TaskEntity> saveTask(String id, TaskEntity task);
-	public Mono<TaskEntity> commentTask(String id, String comment);
-	public Mono<TaskEntity> updateStatus(String id, Boolean sttatus);
+	public Mono<Void> commentTask(String id, String comment);
+	public Mono<Void> updateStatus(String id, Boolean sttatus);
 
 }

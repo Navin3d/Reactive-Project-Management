@@ -10,10 +10,10 @@ public interface ProjectService {
 	public Flux<ProjectEntity> findMany(Integer page, Integer size, Boolean status);
 	
 	public Mono<ProjectEntity> save(ProjectEntity project);	
-	public Mono<ProjectEntity> switchProjectStatus(String projectId, Boolean status);
+	public Mono<Void> switchProjectStatus(String projectId, Boolean status);
 	
-	public Mono<ProjectEntity> requestJoin(String projectId, String userId);
-	public Mono<ProjectEntity> acceptJoinRequest(String projectId, String userId);
-	public Mono<ProjectEntity> rejectJoinRequest(String projectId, String userId);
+	public Mono<Void> requestJoin(String projectId, String userId);
+	public Mono<Void> acceptJoinRequest(String projectId, String userId);
+	public Mono<Void> rejectJoinRequest(String projectId, String userId);
 	
 }

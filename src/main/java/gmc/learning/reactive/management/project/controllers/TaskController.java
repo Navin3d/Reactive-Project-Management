@@ -20,12 +20,12 @@ public class TaskController {
 	private TaskService taskService;
 	
 	@GetMapping(path = "/{taskId}/comment/{comment}")
-	private Mono<TaskEntity> commentOnTask(@PathVariable String taskId, @PathVariable String comment) {
+	private Mono<Void> commentOnTask(@PathVariable String taskId, @PathVariable String comment) {
 		return taskService.commentTask(taskId, comment);
 	}
 	
 	@GetMapping(path = "/{taskId}/status/{status}")
-	private Mono<TaskEntity> changeTaskStatus(@PathVariable String taskId, @PathVariable Boolean status) {
+	private Mono<Void> changeTaskStatus(@PathVariable String taskId, @PathVariable Boolean status) {
 		return taskService.updateStatus(taskId, status);
 	}
 	

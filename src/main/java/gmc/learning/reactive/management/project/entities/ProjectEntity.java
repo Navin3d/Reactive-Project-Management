@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -35,7 +34,6 @@ public @Data class ProjectEntity implements Serializable {
 	
 	private Set<String> developers = new HashSet<>();
 	
-	@CreatedBy
     private String createdBy;
 	
 	@LastModifiedDate

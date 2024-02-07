@@ -14,8 +14,8 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class AuthServiceImpl implements AuthService {
-	
-	@Autowired
+
+	@Autowired(required = true)
 	private DeveloperDao developerDao;
 
 	@Override
@@ -24,30 +24,32 @@ public class AuthServiceImpl implements AuthService {
 		newUser.setName(developerModel.getName());
 		newUser.setEmail(developerModel.getEmail());
 		newUser.setAuthProvider(developerModel.getAuthProvider());
-		if(developerModel.getAuthProvider().equals("Native")) 
+		if (developerModel.getAuthProvider().equals("Native"))
 			newUser.setPassword(developerModel.getPassword());
 		Function<DeveloperEntity, Mono<DeveloperModel>> saveAndConvert = saved -> {
 			developerModel.setId(saved.getId());
 			return Mono.just(developerModel);
 		};
-		Mono<DeveloperEntity> savedDeveloper = developerDao.save(newUser);
-		Mono<DeveloperModel> returnValue = savedDeveloper.flatMap(saveAndConvert);
-		return returnValue;
+		return developerDao.save(newUser).flatMap(saveAndConvert);
 	}
 
 	@Override
 	public Mono<DeveloperModel> completeProfile(DeveloperModel developerModel) {
-		DeveloperEntity newUser = new DeveloperEntity();
-		newUser.setProfilePicUrl(developerModel.getProfilePicUrl());
-		newUser.setUsername(developerModel.getUsername());
-		newUser.setGithubProfile(developerModel.getGithubProfile());
-		newUser.setLinkedInProfile(developerModel.getLinkedInProfile());
-		Function<DeveloperEntity, Mono<DeveloperModel>> saveAndConvert = saved -> {
-			developerModel.setId(saved.getId());
-			return Mono.just(developerModel);
-		};
-		Mono<DeveloperEntity> savedDeveloper = developerDao.save(newUser);
-		Mono<DeveloperModel> returnValue = savedDeveloper.flatMap(saveAndConvert);
+		Mono<DeveloperEntity> requestingDeveloper = developerDao.findById(developerModel.getId());
+		Mono<DeveloperEntity> updatedDeveloper = requestingDeveloper.mapNotNull(developer -> {
+			developer.setProfilePicUrl(developerModel.getProfilePicUrl());
+			developer.setUsername(developerModel.getUsername());
+			developer.setGithubProfile(developerModel.getGithubProfile());
+			developer.setLinkedInProfile(developerModel.getLinkedInProfile());
+			return developer;
+		});
+		Mono<DeveloperEntity> savedDeveloper = updatedDeveloper.flatMap(developer -> developerDao.save(developer));
+		Mono<DeveloperModel> returnValue = savedDeveloper.map(saved -> {
+			developerModel.setEmail(saved.getEmail());
+			developerModel.setName(saved.getName());
+			developerModel.setAuthProvider(saved.getAuthProvider());
+			return developerModel;
+		});
 		return returnValue;
 	}
 

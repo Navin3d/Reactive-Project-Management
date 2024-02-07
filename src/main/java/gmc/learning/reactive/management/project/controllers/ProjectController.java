@@ -20,22 +20,22 @@ public class ProjectController {
 	private ProjectService projectService;
 	
 	@GetMapping(path = "/{projectId}/request/{userId}")
-	private Mono<ProjectEntity> requestJoin(@PathVariable String projectId, @PathVariable String userId) {
+	private Mono<Void> requestJoin(@PathVariable String projectId, @PathVariable String userId) {
 		return projectService.requestJoin(projectId, userId);
 	}
 	
 	@GetMapping(path = "/{projectId}/accept/{userId}")
-	private Mono<ProjectEntity> acceptRequest(@PathVariable String projectId, @PathVariable String userId) {
+	private Mono<Void> acceptRequest(@PathVariable String projectId, @PathVariable String userId) {
 		return projectService.acceptJoinRequest(projectId, userId);
 	}
 	
 	@GetMapping(path = "/{projectId}/reject/{userId}")
-	private Mono<ProjectEntity> rejectRequest(@PathVariable String projectId, @PathVariable String userId) {
+	private Mono<Void> rejectRequest(@PathVariable String projectId, @PathVariable String userId) {
 		return projectService.rejectJoinRequest(projectId, userId);
 	}
 	
 	@GetMapping(path = "/{projectId}/{status}")
-	private Mono<ProjectEntity> changeProjectStatus(@PathVariable String projectId, @PathVariable Boolean status) {
+	private Mono<Void> changeProjectStatus(@PathVariable String projectId, @PathVariable Boolean status) {
 		return projectService.switchProjectStatus(projectId, status);
 	}
 	

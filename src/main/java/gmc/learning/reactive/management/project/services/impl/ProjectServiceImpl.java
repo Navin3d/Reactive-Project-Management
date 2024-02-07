@@ -35,35 +35,31 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public Mono<ProjectEntity> switchProjectStatus(String projectId, Boolean status) {
-		return projectDao.updateField(projectId, status);
+	public Mono<Void> switchProjectStatus(String projectId, Boolean status) {
+		return projectDao.updateStatus(projectId, status);
 	}
 	
 	@Override
-	public Mono<ProjectEntity> requestJoin(String projectId, String userId) {
-		return projectDao.findById(projectId)
-				.flatMap(foundProject -> {
-					foundProject.getRequestedDevelopers().add(userId);
-					return save(foundProject);
-				});
+	public Mono<Void> requestJoin(String projectId, String userId) {
+		return projectDao.pushToJoinRequests(projectId, userId);
 	}
 
 	@Override
-	public Mono<ProjectEntity> acceptJoinRequest(String projectId, String userId) {
+	public Mono<Void> acceptJoinRequest(String projectId, String userId) {
 		return projectDao.findById(projectId)
 				.flatMap(foundProject -> {
 					foundProject.getRequestedDevelopers().remove(userId);
 					foundProject.getDevelopers().add(userId);
-					return save(foundProject);
+					return save(foundProject).then();
 				});
 	}
 
 	@Override
-	public Mono<ProjectEntity> rejectJoinRequest(String projectId, String userId) {
+	public Mono<Void> rejectJoinRequest(String projectId, String userId) {
 		return projectDao.findById(projectId)
 				.flatMap(foundProject -> {
 					foundProject.getRequestedDevelopers().remove(userId);
-					return save(foundProject);
+					return save(foundProject).then();
 				});
 	}
 
