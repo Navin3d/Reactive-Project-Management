@@ -72,7 +72,7 @@ The Project Management App provides a RESTful API for interacting with projects 
 - **PUT /projects/{projectId}/tasks/{taskId}**: Update a task for a project.
 - **DELETE /projects/{projectId}/tasks/{taskId}**: Delete a task for a project.
 
-For more details and examples, refer to the API documentation or Swagger UI at [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html).
+For more details and examples, refer to the API documentation or Swagger UI at [http://localhost:8080/webjars/swagger-ui/index.html#/](http://localhost:8080/webjars/swagger-ui/index.html#/).
 
 ## Contributing
 
@@ -91,7 +91,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Acknowledgements
 
 - Spring Framework
-- MongoDB
+- Spring webflux.
+- Reactive MongoDB
 - Reactor Core
 
 ## References:
