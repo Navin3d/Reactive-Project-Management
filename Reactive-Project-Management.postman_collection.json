@@ -1,0 +1,404 @@
+{
+	"info": {
+		"_postman_id": "49ed431c-7473-4db9-a949-808c722ea1d7",
+		"name": "Reactive-Project-Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17195439"
+	},
+	"item": [
+		{
+			"name": "Project-Service",
+			"item": [
+				{
+					"name": "Create Project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzbXByYXZpbjY1QGdtaWwuY29tIiwiaWF0IjoxNzA3MzMxMzM5LCJleHAiOjE3MDczMzk5Nzl9.tIhggxk7sWArfFV9G82Rt1cLEWfGktiBhIMlvM9N9_Y",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tittle\": \"Connectverse\",\n    \"description\": \"Welcome to Reactive Programming World of multiple threads.\",\n    \"createdBy\": \"65c3918dbdd5a6747478d3e1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/project",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"65c39453df06fb1089112893\",\n    \"tittle\": \"Connectverse\",\n    \"description\": \"Welcome to Reactive Programming World of multiple threads.\",\n    \"createdBy\": \"65c3918dbdd5a6747478d3e1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/project",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Join",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/project/65c39453df06fb1089112893/request/65c394ebdf06fb1089112894",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project",
+								"65c39453df06fb1089112893",
+								"request",
+								"65c394ebdf06fb1089112894"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reject Join",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/project/65c39453df06fb1089112893/reject/65c394ebdf06fb1089112894",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project",
+								"65c39453df06fb1089112893",
+								"reject",
+								"65c394ebdf06fb1089112894"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accept Join",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/project/65c39453df06fb1089112893/accept/65c394ebdf06fb1089112894",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project",
+								"65c39453df06fb1089112893",
+								"accept",
+								"65c394ebdf06fb1089112894"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/project/65c39453df06fb1089112893/true",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project",
+								"65c39453df06fb1089112893",
+								"true"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth-Service",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pravin\",\n    \"email\": \"smpravi@gmil.com\",\n    \"password\": \"pravin\",\n    \"authProvider\": \"Native\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/auth",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Complete Profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"65c3918dbdd5a6747478d3e1\",\n    \"username\": \"S M Navin Durai\",\n    \"profilePicUrl\": \"https://media.licdn.com/dms/image/D5603AQFSV3-E7b4O4Q/profile-displayphoto-shrink_400_400/0/1687549472680?e=1712793600&v=beta&t=nJwOAFdSV_n9eI5bG9b5UHakQRMXiDN-9saJKBeWIe8\",\n    \"githubProfile\": \"https;//github.com/Navin3d\",\n    \"linkedInProfile\": \"https://www.linkedin.com/in/smnavindurai/\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/auth",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userName\": \"smpravin65@gmil.com\",\n    \"password\": \"pravin\",\n    \"otp\": \"null\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle M2F",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzbXByYXZpbjY1QGdtaWwuY29tIiwiaWF0IjoxNzA3NTQ5NDcyLCJleHAiOjE3MDc1NTgxMTJ9.1anrDdt5RGJdPmDNFiEdncC33trVBmcIS441D6isPz0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/auth/65c5f120a24210089ce6e143/m2f/true",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"65c5f120a24210089ce6e143",
+								"m2f",
+								"true"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Is M2F Enabled",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzbXByYXZpbjY1QGdtaWwuY29tIiwiaWF0IjoxNzA3NTQ5NDcyLCJleHAiOjE3MDc1NTgxMTJ9.1anrDdt5RGJdPmDNFiEdncC33trVBmcIS441D6isPz0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/auth/smpravin65@gmil.com",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"smpravin65@gmil.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/oauth2/authorization/google",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/oauth2/authorization/google",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oauth2",
+								"authorization",
+								"google"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task-Service",
+			"item": [
+				{
+					"name": "Add Comment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/task/65c3961216c32572520d5ce7/comment/add code quality template",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"task",
+								"65c3961216c32572520d5ce7",
+								"comment",
+								"add code quality template"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/task/65c3961216c32572520d5ce7/status/true",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"task",
+								"65c3961216c32572520d5ce7",
+								"status",
+								"true"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AssignTask",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tittle\": \"Deploy to Production.\",\n    \"description\": \"Use Openshift and gitlab Pipeline.\",\n    \"deadline\": \"2024-09-09\",\n    \"assignedTo\": \"65c394ebdf06fb1089112894\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/task/65c39453df06fb1089112893",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"task",
+								"65c39453df06fb1089112893"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

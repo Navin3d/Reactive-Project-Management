@@ -12,6 +12,6 @@ public class AppSettings {
 	
 	private Integer pageSize;
 	
-	private Boolean diableSecurity;
+	private Boolean disableSecurity;
 
 }

@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: dev
   security:
     oauth2:
       client:
@@ -11,6 +9,10 @@ spring:
           github:
             client-id: f64b3b2b131b3effc573
             client-secret: 0491edb487ed63cfd6b77fd15a0a44580ad31772
+      resourceserver:
+        jwt:
+          issuer-uri: https://accounts.google.com
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
       
 auth:
   oauth-path: /login/oauth2/code/**
@@ -23,4 +25,4 @@ auth:
 settings:
   app:
     pageSize: 10
-    diable-security: true
+    disableSecurity: false

@@ -4,7 +4,6 @@ package gmc.learning.reactive.management.project.services.impl;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 import org.jboss.aerogear.security.otp.Totp;
@@ -92,20 +91,32 @@ public class AuthServiceImpl implements AuthService {
 		} else
 			return developerDao.m2FStatus(userId, "", status).map(nothing -> "");
 	}
+	
+	private DeveloperEntity assignValuesToEntity(DeveloperEntity entity, DeveloperModel model) {
+		entity.setName(model.getName());
+		entity.setProfilePicUrl(model.getProfilePicUrl());
+		entity.setEmail(model.getEmail());
+		entity.setAuthProvider(model.getAuthProvider());
+		if (model.getAuthProvider().equals("Native"))
+			entity.setPassword(bCryptPasswordEncoder.encode(model.getPassword()));
+		return entity;
+	}
 
 	@Override
 	public Mono<DeveloperModel> registerUser(DeveloperModel developerModel) {
-		DeveloperEntity newUser = new DeveloperEntity();
-		newUser.setName(developerModel.getName());
-		newUser.setEmail(developerModel.getEmail());
-		newUser.setAuthProvider(developerModel.getAuthProvider());
-		if (developerModel.getAuthProvider().equals("Native"))
-			newUser.setPassword(bCryptPasswordEncoder.encode(developerModel.getPassword()));
-		Function<DeveloperEntity, Mono<DeveloperModel>> saveAndConvert = saved -> {
-			developerModel.setId(saved.getId());
-			return Mono.just(developerModel);
-		};
-		return developerDao.save(newUser).flatMap(saveAndConvert);
+		return developerDao.existsByEmail(developerModel.getEmail()).flatMap(isPresent -> {
+			if(isPresent)
+				return developerDao.findByEmail(developerModel.getEmail()).flatMap(foundUser -> {
+					return developerDao.save(assignValuesToEntity(foundUser, developerModel)).map(savedUser -> {
+						developerModel.setId(savedUser.getId());
+						return developerModel;
+					});
+				});
+			return developerDao.save(assignValuesToEntity(new DeveloperEntity(), developerModel)).map(saveduser -> {
+				developerModel.setId(saveduser.getId());
+				return developerModel;
+			});
+		});
 	}
 
 	@Override
