@@ -10,6 +10,7 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "auth")
 public class AuthConfig {
 	private String authUrl;
+	private String oauthPath;
 	private String issuer;
 	private String jwtSecret;
 	private long expeiry;

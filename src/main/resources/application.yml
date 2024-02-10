@@ -1,10 +1,19 @@
 spring:
-  docker:
-    compose:
-      skip:
-        in-tests: false
+  profiles:
+    active: dev
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 695310808073-273d8bafanlk75o5pumtom9lp1oagedq.apps.googleusercontent.com
+            client-secret: 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
+          github:
+            client-id: f64b3b2b131b3effc573
+            client-secret: 0491edb487ed63cfd6b77fd15a0a44580ad31772
       
 auth:
+  oauth-path: /login/oauth2/code/**
   refresh-token: '864000000'
   issuer: GMC
   auth-url: /auth/login
@@ -14,4 +23,4 @@ auth:
 settings:
   app:
     pageSize: 10
-    
+    diable-security: true

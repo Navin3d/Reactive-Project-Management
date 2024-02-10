@@ -23,6 +23,10 @@ public @Data class DeveloperEntity implements Serializable {
 	
 	private String password;
 	
+	private String m2FId;
+	
+	private Boolean enabledM2F;
+	
 	private String email;
 	
 	private String githubProfile;

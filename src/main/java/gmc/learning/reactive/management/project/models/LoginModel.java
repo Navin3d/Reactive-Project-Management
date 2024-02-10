@@ -12,5 +12,7 @@ public class LoginModel implements Serializable {
 	private String userName;
 	
 	private String password;
+	
+	private String otp;
 
 }

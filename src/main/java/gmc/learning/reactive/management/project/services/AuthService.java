@@ -7,6 +7,11 @@ import reactor.core.publisher.Mono;
 
 public interface AuthService extends ReactiveUserDetailsService {
 	
+	public static String OTP_SEPERATOR = "@NAVIN@";
+	
+	public Mono<Boolean> isM2FEnabled(String userId);
+	public Mono<String> toggleM2F(String userId, Boolean status);
+	
 	public Mono<DeveloperModel> registerUser(DeveloperModel developerModel);	
 	public Mono<DeveloperModel> completeProfile(DeveloperModel developerModel);
 

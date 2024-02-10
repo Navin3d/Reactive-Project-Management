@@ -11,5 +11,7 @@ import lombok.Data;
 public class AppSettings {
 	
 	private Integer pageSize;
+	
+	private Boolean diableSecurity;
 
 }
