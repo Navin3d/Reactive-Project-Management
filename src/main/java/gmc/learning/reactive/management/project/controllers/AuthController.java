@@ -64,13 +64,13 @@ public class AuthController {
 	}
 
 	@PostMapping
-	private Mono<DeveloperModel> registerUser(@RequestBody DeveloperModel newUser) {
-		return authService.registerUser(newUser);
+	private Mono<DeveloperModel> registerUser(@RequestBody Mono<DeveloperModel> newUser) {
+		return newUser.flatMap(authService::registerUser);
 	}
 
 	@PutMapping
-	private Mono<DeveloperModel> completeProfile(@RequestBody DeveloperModel newUser) {
-		return authService.completeProfile(newUser);
+	private Mono<DeveloperModel> completeProfile(@RequestBody Mono<DeveloperModel> newUser) {
+		return newUser.flatMap(authService::completeProfile);
 	}
 
 }

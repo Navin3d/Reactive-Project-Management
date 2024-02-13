@@ -30,8 +30,8 @@ public class TaskController {
 	}
 	
 	@PostMapping(path = "/{projectId}")
-	private Mono<TaskEntity> task(@PathVariable String projectId, @RequestBody TaskEntity taskToAssign) {
-		return taskService.saveTask(projectId, taskToAssign);
+	private Mono<TaskEntity> task(@PathVariable String projectId, @RequestBody Mono<TaskEntity> taskToAssign) {
+		return taskToAssign.flatMap(task -> taskService.saveTask(projectId, task)) ;
 	}
 
 }

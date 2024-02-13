@@ -40,8 +40,8 @@ public class ProjectController {
 	}
 	
 	@PostMapping
-	private Mono<ProjectEntity> save(@RequestBody ProjectEntity newProject) {
-		return projectService.save(newProject);
+	private Mono<ProjectEntity> save(@RequestBody Mono<ProjectEntity> newProject) {
+		return newProject.flatMap(projectService::save);
 	}
 	
 }
