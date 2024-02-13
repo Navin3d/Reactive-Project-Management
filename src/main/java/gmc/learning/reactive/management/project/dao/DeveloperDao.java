@@ -1,13 +1,18 @@
 package gmc.learning.reactive.management.project.dao;
 
+import java.util.Set;
+
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.data.mongodb.repository.Update;
 
 import gmc.learning.reactive.management.project.entities.DeveloperEntity;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface DeveloperDao extends ReactiveMongoRepository<DeveloperEntity, String> {
+	
+	public Flux<DeveloperEntity> findAllById(Set<String> id);
 
 	public Mono<DeveloperEntity> findByEmail(String email);
 	

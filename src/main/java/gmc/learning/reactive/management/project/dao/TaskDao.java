@@ -14,12 +14,14 @@ public interface TaskDao extends ReactiveMongoRepository<TaskEntity, String> {
 	
 	public Flux<TaskEntity> findByAssignedToAndStatus(String userId, Boolean status);
 	
+	public Flux<TaskEntity> findByProjectId(String projectId);
+	
 	@Query("{'_id': ?0}")
 	@Update("{ '$addToSet': { 'comments': ?1 } }")
 	public Mono<Void> pushToComments(String id, String comment);
 	
 	@Query("{'_id': ?0}")
 	@Update("{ '$set': { 'status': ?1 } }")
-	public Mono<Void> updateField(String id, Boolean status);
+	public Mono<Void> updateStatus(String id, Boolean status);
 	
 }

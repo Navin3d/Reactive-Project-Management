@@ -1,15 +1,28 @@
 package gmc.learning.reactive.management.project.models;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import gmc.learning.reactive.management.project.entities.DeveloperEntity;
+import gmc.learning.reactive.management.project.entities.ProjectEntity;
 import gmc.learning.reactive.management.project.entities.TaskEntity;
 import lombok.Data;
 
 @Data
 public class ProjectGraphModel implements Serializable {
+	
+	public ProjectGraphModel() {}
+	
+	public ProjectGraphModel(ProjectEntity project) {
+		this.id = project.getId();
+		this.tittle = project.getTittle();
+		this.description = project.getDescription();
+		this.icon = project.getIcon();
+		this.status = project.getStatus();
+		this.createdAt = project.getCreatedAt();
+	}
 	
 	private static final long serialVersionUID = -1318727392845400532L;
 	
@@ -23,12 +36,14 @@ public class ProjectGraphModel implements Serializable {
 	
 	private Boolean status;
 	
-	private Set<TaskEntity> tasks = new HashSet<>();
+	private List<TaskEntity> tasks = new ArrayList<>();
 	
-	private Set<DeveloperEntity> requestedDevelopers = new HashSet<>();
+	private List<DeveloperEntity> requestedDevelopers = new ArrayList<>();
 	
-	private Set<DeveloperEntity> developers = new HashSet<>();
+	private List<DeveloperEntity> developers = new ArrayList<>();
 	
-    private DeveloperGraphModel createdBy;
+    private DeveloperEntity createdBy;
+    
+    private LocalDate createdAt;
 
 }

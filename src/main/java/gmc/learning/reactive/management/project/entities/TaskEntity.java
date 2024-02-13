@@ -31,6 +31,8 @@ public @Data class TaskEntity implements Serializable {
 	
 	private String assignedTo;
 	
+	private String projectId;
+	
 	private LocalDate deadline;
 	
 	@LastModifiedDate

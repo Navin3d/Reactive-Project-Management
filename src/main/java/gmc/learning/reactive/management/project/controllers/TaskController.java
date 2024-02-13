@@ -29,9 +29,9 @@ public class TaskController {
 		return taskService.updateStatus(taskId, status);
 	}
 	
-	@PostMapping(path = "/{projectId}")
-	private Mono<TaskEntity> task(@PathVariable String projectId, @RequestBody Mono<TaskEntity> taskToAssign) {
-		return taskToAssign.flatMap(task -> taskService.saveTask(projectId, task)) ;
+	@PostMapping
+	private Mono<TaskEntity> task(@RequestBody Mono<TaskEntity> taskToAssign) {
+		return taskToAssign.flatMap(taskService::saveTask) ;
 	}
 
 }

@@ -18,10 +18,6 @@ public interface ProjectDao extends ReactiveMongoRepository<ProjectEntity, Strin
 	public Mono<Void> updateStatus(String id, Boolean status);
 	
 	@Query("{'_id': ?0}")
-	@Update("{ '$addToSet': { 'tasks': ?1 } }")
-	public Mono<Void> pushToTasks(String id, String taskId);
-	
-	@Query("{'_id': ?0}")
 	@Update("{ '$addToSet': { 'requestedDevelopers': ?1 } }")
 	public Mono<Void> pushToJoinRequests(String id, String userId);
 	

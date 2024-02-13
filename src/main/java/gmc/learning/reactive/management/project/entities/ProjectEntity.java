@@ -1,7 +1,7 @@
 package gmc.learning.reactive.management.project.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,9 +27,7 @@ public @Data class ProjectEntity implements Serializable {
 	private String icon = "https://avatars.githubusercontent.com/u/71096790?v=4";
 	
 	private Boolean status = true;
-	
-	private Set<String> tasks = new HashSet<>();
-	
+		
 	private Set<String> requestedDevelopers = new HashSet<>();
 	
 	private Set<String> developers = new HashSet<>();
@@ -37,9 +35,9 @@ public @Data class ProjectEntity implements Serializable {
     private String createdBy;
 	
 	@LastModifiedDate
-	private LocalDateTime updatedAt;
+	private LocalDate updatedAt;
 	
 	@CreatedDate
-	private LocalDateTime createdAt;
+	private LocalDate createdAt;
 
 }
