@@ -1,5 +1,7 @@
 package gmc.learning.reactive.management.project.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,11 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public Mono<Void> updateStatus(String id, Boolean sttatus) {
 		return taskDao.updateStatus(id, sttatus);
+	}
+
+	@Override
+	public void saveAll(List<TaskEntity> taskEntities) {
+		taskDao.saveAll(taskEntities);
 	}
 
 }

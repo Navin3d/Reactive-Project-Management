@@ -1,5 +1,7 @@
 package gmc.learning.reactive.management.project.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -61,6 +63,11 @@ public class ProjectServiceImpl implements ProjectService {
 					foundProject.getRequestedDevelopers().remove(userId);
 					return save(foundProject).then();
 				});
+	}
+
+	@Override
+	public void saveAll(List<ProjectEntity> projectEntities) {
+		projectDao.saveAll(projectEntities);
 	}
 
 }

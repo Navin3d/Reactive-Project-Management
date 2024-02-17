@@ -25,7 +25,7 @@ public @Data class DeveloperEntity implements Serializable {
 	
 	private String m2FId;
 	
-	private Boolean enabledM2F;
+	private Boolean enabledM2F = false;
 	
 	private String email;
 	
