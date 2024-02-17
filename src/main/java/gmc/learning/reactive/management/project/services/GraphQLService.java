@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 
 public interface GraphQLService {
 	
-	public Flux<ProjectGraphModel> projects(Integer page, Integer size);
+	public Flux<ProjectGraphModel> projects();
 	
 	public Mono<ProjectGraphModel> project(String id);
 	

@@ -9,7 +9,10 @@ import reactor.core.publisher.Mono;
 public interface ProjectService {
 	
 	public Mono<ProjectEntity> findOne(String id);	
-	public Flux<ProjectEntity> findMany(Integer page, Integer size, Boolean status);
+	public Flux<ProjectEntity> findManyByStatus(Boolean status);
+	public Flux<ProjectEntity> findManyByAdminId(String createdBy);
+	public Flux<ProjectEntity> findManyByDeveloper(String developerId);
+	public Flux<ProjectEntity> findManyByDevelopersRequested(String developerId);
 	
 	public Mono<ProjectEntity> save(ProjectEntity project);	
 	public Mono<Void> switchProjectStatus(String projectId, Boolean status);

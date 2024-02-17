@@ -23,12 +23,14 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public Mono<Void> commentTask(String id, String comment) {
-		return taskDao.pushToComments(id, comment);
+		taskDao.pushToComments(id, comment);
+		return null;
 	}
 
 	@Override
 	public Mono<Void> updateStatus(String id, Boolean sttatus) {
-		return taskDao.updateStatus(id, sttatus);
+		taskDao.updateStatus(id, sttatus);
+		return null;
 	}
 
 	@Override

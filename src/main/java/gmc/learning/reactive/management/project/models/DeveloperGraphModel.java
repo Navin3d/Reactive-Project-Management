@@ -1,15 +1,28 @@
 package gmc.learning.reactive.management.project.models;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
+import gmc.learning.reactive.management.project.entities.DeveloperEntity;
 import gmc.learning.reactive.management.project.entities.ProjectEntity;
 import gmc.learning.reactive.management.project.entities.TaskEntity;
 import lombok.Data;
 
 @Data
 public class DeveloperGraphModel implements Serializable {
+	
+	public DeveloperGraphModel() {}
+	
+	public DeveloperGraphModel(DeveloperEntity developerEntity) {
+		this.id = developerEntity.getId();
+		this.email = developerEntity.getEmail();
+		this.profilePicUrl = developerEntity.getProfilePicUrl();
+		this.name = developerEntity.getName();
+		this.githubProfile = developerEntity.getGithubProfile();
+		this.linkedInProfile = developerEntity.getLinkedInProfile();
+		this.username = developerEntity.getUsername();
+	}
 	
 	private static final long serialVersionUID = 8554517519694149552L;
 	
@@ -27,10 +40,12 @@ public class DeveloperGraphModel implements Serializable {
 	
 	private String linkedInProfile;
 	
-	private Set<TaskEntity> tasks = new HashSet<>();
+	private List<TaskEntity> tasks = new ArrayList<>();
 	
-	private Set<ProjectEntity> projects = new HashSet<>();
+	private List<ProjectEntity> projects = new ArrayList<>();
 	
-	private Set<ProjectEntity> requestedProjects = new HashSet<>();
+	private List<ProjectEntity> createdProjects = new ArrayList<>();
+	
+	private List<ProjectEntity> requestedProjects = new ArrayList<>();
 	
 }

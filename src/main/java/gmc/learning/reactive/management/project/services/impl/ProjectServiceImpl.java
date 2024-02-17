@@ -3,9 +3,6 @@ package gmc.learning.reactive.management.project.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import gmc.learning.reactive.management.project.dao.ProjectDao;
@@ -16,7 +13,7 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
-	
+
 	@Autowired
 	private ProjectDao projectDao;
 
@@ -26,11 +23,25 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public Flux<ProjectEntity> findMany(Integer page, Integer size, Boolean status) {
-		Pageable pageConfig = PageRequest.of(page, size, Sort.by("tittle"));
-		return projectDao.findByStatus(status, pageConfig);
+	public Flux<ProjectEntity> findManyByStatus(Boolean status) {
+		return projectDao.findByStatus(status);
 	}
 	
+	@Override
+	public Flux<ProjectEntity> findManyByAdminId(String createdBy) {
+		return projectDao.findByCreatedBy(createdBy);
+	}
+	
+	@Override
+	public Flux<ProjectEntity> findManyByDeveloper(String developerId) {
+		return projectDao.findByDevelopersContaining(developerId);
+	}
+
+	@Override
+	public Flux<ProjectEntity> findManyByDevelopersRequested(String developerId) {
+		return projectDao.findByRequestedDevelopersContaining(developerId);
+	}
+
 	@Override
 	public Mono<ProjectEntity> save(ProjectEntity newProject) {
 		return projectDao.save(newProject);
@@ -38,31 +49,33 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public Mono<Void> switchProjectStatus(String projectId, Boolean status) {
-		return projectDao.updateStatus(projectId, status);
+		projectDao.updateStatus(projectId, status);
+		return null;
 	}
-	
+
 	@Override
 	public Mono<Void> requestJoin(String projectId, String userId) {
-		return projectDao.pushToJoinRequests(projectId, userId);
+		projectDao.pushToJoinRequests(projectId, userId);
+		return null;
 	}
 
 	@Override
 	public Mono<Void> acceptJoinRequest(String projectId, String userId) {
-		return projectDao.findById(projectId)
-				.flatMap(foundProject -> {
-					foundProject.getRequestedDevelopers().remove(userId);
-					foundProject.getDevelopers().add(userId);
-					return save(foundProject).then();
-				});
+		projectDao.findById(projectId).subscribe(foundProject -> {
+			foundProject.getRequestedDevelopers().remove(userId);
+			foundProject.getDevelopers().add(userId);
+			save(foundProject);
+		});
+		return null;
 	}
 
 	@Override
 	public Mono<Void> rejectJoinRequest(String projectId, String userId) {
-		return projectDao.findById(projectId)
-				.flatMap(foundProject -> {
-					foundProject.getRequestedDevelopers().remove(userId);
-					return save(foundProject).then();
-				});
+		projectDao.findById(projectId).subscribe(foundProject -> {
+			foundProject.getRequestedDevelopers().remove(userId);
+			save(foundProject);
+		});
+		return null;
 	}
 
 	@Override
