@@ -1,4 +1,4 @@
-package gmc.learning.reactive.management.project.utils;
+package gmc.learning.reactive.management.project.security;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -16,7 +16,6 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
-import gmc.learning.reactive.management.project.config.AuthConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;

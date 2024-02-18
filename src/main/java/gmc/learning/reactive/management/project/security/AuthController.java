@@ -1,4 +1,4 @@
-package gmc.learning.reactive.management.project.controllers;
+package gmc.learning.reactive.management.project.security;
 
 import java.util.Map;
 
@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gmc.learning.reactive.management.project.models.DeveloperModel;
-import gmc.learning.reactive.management.project.models.LoginModel;
-import gmc.learning.reactive.management.project.services.AuthService;
-import gmc.learning.reactive.management.project.utils.JwtTokenProvider;
 import reactor.core.publisher.Mono;
 
 @RequestMapping(path = "/auth")

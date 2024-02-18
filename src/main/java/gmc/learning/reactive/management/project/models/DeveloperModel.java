@@ -12,6 +12,7 @@ public class DeveloperModel implements Serializable {
 	public DeveloperModel() {}
 	
 	public DeveloperModel(String principalString) {
+		
 		Pattern namePattern = Pattern.compile("name=([^,]+)");
 		Pattern emailPattern = Pattern.compile("email=([^,]+)");
 		Pattern picturePattern = Pattern.compile("picture=([^,]+)");

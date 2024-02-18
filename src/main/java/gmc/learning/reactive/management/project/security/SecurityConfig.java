@@ -1,4 +1,6 @@
-package gmc.learning.reactive.management.project.config;
+package gmc.learning.reactive.management.project.security;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,11 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
 import org.springframework.stereotype.Component;
-
-import gmc.learning.reactive.management.project.services.AuthService;
-import gmc.learning.reactive.management.project.utils.JwtTokenAuthenticationFilter;
-import gmc.learning.reactive.management.project.utils.JwtTokenProvider;
-import gmc.learning.reactive.management.project.utils.OAuthSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 @Component
 @Configuration
@@ -30,26 +30,25 @@ public class SecurityConfig {
 	private AuthConfig authConfig;
 
 	@Bean
-	SecurityWebFilterChain springWebFilterChain(ServerHttpSecurity http, JwtTokenProvider tokenProvider, AuthService authService,
-			ReactiveAuthenticationManager reactiveAuthenticationManager) {
+	SecurityWebFilterChain springWebFilterChain(ServerHttpSecurity http, JwtTokenProvider tokenProvider,
+			AuthService authService, ReactiveAuthenticationManager reactiveAuthenticationManager) {
 		if (securityDisabled)
-			return http.csrf(ServerHttpSecurity.CsrfSpec::disable).httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
+			return http.cors(cors -> cors.configurationSource(corsConfigurationSource())).csrf(ServerHttpSecurity.CsrfSpec::disable).httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
 					.authenticationManager(reactiveAuthenticationManager)
 					.securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
 					.authorizeExchange(it -> it.pathMatchers("*", "/**").permitAll()).build();
 		final String SWAGGER = "/webjars/swagger-ui/**";
-		return http.csrf(ServerHttpSecurity.CsrfSpec::disable).httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
+		return http.cors(cors -> cors.configurationSource(corsConfigurationSource())).csrf(ServerHttpSecurity.CsrfSpec::disable).httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
 				.authenticationManager(reactiveAuthenticationManager)
 				.securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
 				.authorizeExchange(it -> it.pathMatchers(HttpMethod.GET, SWAGGER).permitAll()
-						.pathMatchers(HttpMethod.POST, "/auth").permitAll()
-						.pathMatchers(HttpMethod.POST, authConfig.getAuthUrl()).permitAll()
-						.pathMatchers(authConfig.getOauthPath()).permitAll()
-						.pathMatchers("/**").authenticated().anyExchange().permitAll())
+						.pathMatchers(HttpMethod.GET, "/auth/*").permitAll().pathMatchers(HttpMethod.POST, "/auth")
+						.permitAll().pathMatchers(HttpMethod.POST, authConfig.getAuthUrl()).permitAll()
+						.pathMatchers(authConfig.getOauthPath()).permitAll().pathMatchers("/**").authenticated()
+						.anyExchange().permitAll())
 				.oauth2Login(oauth -> {
 					oauth.authenticationSuccessHandler(new OAuthSuccessHandler(tokenProvider, authService));
-				})
-				.addFilterAt(new JwtTokenAuthenticationFilter(tokenProvider), SecurityWebFiltersOrder.HTTP_BASIC)
+				}).addFilterAt(new JwtTokenAuthenticationFilter(tokenProvider), SecurityWebFiltersOrder.HTTP_BASIC)
 				.build();
 	}
 
@@ -59,10 +58,23 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	ReactiveAuthenticationManager reactiveAuthenticationManager(BCryptPasswordEncoder bCryptPasswordEncoder, AuthService authService) {
+	ReactiveAuthenticationManager reactiveAuthenticationManager(BCryptPasswordEncoder bCryptPasswordEncoder,
+			AuthService authService) {
 		var authenticationManager = new UserDetailsRepositoryReactiveAuthenticationManager(authService);
 		authenticationManager.setPasswordEncoder(bCryptPasswordEncoder);
 		return authenticationManager;
 	}
+	
+	private CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT"));
+        configuration.setAllowedHeaders(List.of("Access-Control-Allow-Origin", 
+                                       "Authorization", "Content-Type"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
 }

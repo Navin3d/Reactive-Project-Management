@@ -1,7 +1,5 @@
-package gmc.learning.reactive.management.project.services;
+package gmc.learning.reactive.management.project.graphql;
 
-import gmc.learning.reactive.management.project.models.DeveloperGraphModel;
-import gmc.learning.reactive.management.project.models.ProjectGraphModel;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

@@ -1,4 +1,4 @@
-package gmc.learning.reactive.management.project.services;
+package gmc.learning.reactive.management.project.security;
 
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 

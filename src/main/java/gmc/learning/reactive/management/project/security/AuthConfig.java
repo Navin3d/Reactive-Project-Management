@@ -1,4 +1,4 @@
-package gmc.learning.reactive.management.project.config;
+package gmc.learning.reactive.management.project.security;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

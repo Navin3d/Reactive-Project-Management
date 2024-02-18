@@ -1,4 +1,4 @@
-package gmc.learning.reactive.management.project.models;
+package gmc.learning.reactive.management.project.security;
 
 import java.io.Serializable;
 

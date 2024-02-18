@@ -1,13 +1,10 @@
-package gmc.learning.reactive.management.project.controllers;
+package gmc.learning.reactive.management.project.graphql;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import gmc.learning.reactive.management.project.models.DeveloperGraphModel;
-import gmc.learning.reactive.management.project.models.ProjectGraphModel;
-import gmc.learning.reactive.management.project.services.GraphQLService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

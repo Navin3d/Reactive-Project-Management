@@ -1,8 +1,10 @@
-package gmc.learning.reactive.management.project.utils;
+package gmc.learning.reactive.management.project.security;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Supplier;
 
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -15,7 +17,6 @@ import org.springframework.security.web.server.authentication.ServerAuthenticati
 import org.springframework.web.server.ServerWebExchange;
 
 import gmc.learning.reactive.management.project.models.DeveloperModel;
-import gmc.learning.reactive.management.project.services.AuthService;
 import reactor.core.publisher.Mono;
 
 public class OAuthSuccessHandler implements ServerAuthenticationSuccessHandler {
@@ -34,14 +35,24 @@ public class OAuthSuccessHandler implements ServerAuthenticationSuccessHandler {
 			
     @Override
     public Mono<Void> onAuthenticationSuccess(WebFilterExchange webFilterExchange, Authentication authentication) {
-    	ServerWebExchange exchange = webFilterExchange.getExchange();
     	DeveloperModel signinUser = new DeveloperModel(authentication.getPrincipal().toString());
-    	authService.registerUser(signinUser).subscribe();
+    	CompletableFuture<DeveloperModel> saved = authService.registerUser(signinUser).toFuture();
+    	ServerWebExchange exchange = webFilterExchange.getExchange();
     	Authentication newAuthentication = new Authentication() {			
 			private static final long serialVersionUID = -3909253054119418051L;
 			@Override
 			public String getName() {
-				return signinUser.getEmail();
+				try {
+					return saved.get().getId();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return "";
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return "";
+				}
 			}			
 			@Override
 			public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
@@ -81,7 +92,7 @@ public class OAuthSuccessHandler implements ServerAuthenticationSuccessHandler {
 //        if (!StringUtils.hasText(encodedUrlSafeState))
 //            return URI.create(httpRequest.getURI().getHost());
 //        byte[] redirectUriByte = Base64.getDecoder().decode(encodedUrlSafeState);
-        return URI.create(new String("http://localhost:8080/webjars/swagger-ui/index.html#?" + token));
+        return URI.create(new String("http://localhost:3000/oauth/" + token));
     }
 
 }

@@ -1,5 +1,5 @@
 
-package gmc.learning.reactive.management.project.services.impl;
+package gmc.learning.reactive.management.project.security;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import gmc.learning.reactive.management.project.dao.DeveloperDao;
 import gmc.learning.reactive.management.project.entities.DeveloperEntity;
 import gmc.learning.reactive.management.project.models.DeveloperModel;
-import gmc.learning.reactive.management.project.services.AuthService;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -67,12 +66,12 @@ public class AuthServiceImpl implements AuthService {
 								.build();
 					}
 				}
-				return User.withUsername(userName).password(developer.getPassword()).authorities(new ArrayList<>())
+				return User.withUsername(developer.getId()).password(developer.getPassword()).authorities(new ArrayList<>())
 						.accountExpired(false).credentialsExpired(false).disabled(false).accountLocked(false).build();
 			});
 		}
 		return developerDao.findByEmail(username)
-				.map(u -> User.withUsername(username).password(u.getPassword()).authorities(new ArrayList<>())
+				.map(u -> User.withUsername(u.getId()).password(u.getPassword()).authorities(new ArrayList<>())
 						.accountExpired(false).credentialsExpired(false).disabled(false).accountLocked(false).build());
 	}
 

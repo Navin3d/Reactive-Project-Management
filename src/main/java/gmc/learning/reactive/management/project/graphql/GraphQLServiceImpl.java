@@ -1,4 +1,4 @@
-package gmc.learning.reactive.management.project.services.impl;
+package gmc.learning.reactive.management.project.graphql;
 
 import java.util.function.Function;
 
@@ -10,9 +10,6 @@ import gmc.learning.reactive.management.project.dao.TaskDao;
 import gmc.learning.reactive.management.project.entities.DeveloperEntity;
 import gmc.learning.reactive.management.project.entities.ProjectEntity;
 import gmc.learning.reactive.management.project.entities.TaskEntity;
-import gmc.learning.reactive.management.project.models.DeveloperGraphModel;
-import gmc.learning.reactive.management.project.models.ProjectGraphModel;
-import gmc.learning.reactive.management.project.services.GraphQLService;
 import gmc.learning.reactive.management.project.services.ProjectService;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
