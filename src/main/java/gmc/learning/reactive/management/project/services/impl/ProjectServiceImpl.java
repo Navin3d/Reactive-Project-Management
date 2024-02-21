@@ -26,12 +26,12 @@ public class ProjectServiceImpl implements ProjectService {
 	public Flux<ProjectEntity> findManyByStatus(Boolean status) {
 		return projectDao.findByStatus(status);
 	}
-	
+
 	@Override
 	public Flux<ProjectEntity> findManyByAdminId(String createdBy) {
 		return projectDao.findByCreatedBy(createdBy);
 	}
-	
+
 	@Override
 	public Flux<ProjectEntity> findManyByDeveloper(String developerId) {
 		return projectDao.findByDevelopersContaining(developerId);
@@ -49,13 +49,13 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public Mono<Void> switchProjectStatus(String projectId, Boolean status) {
-		projectDao.updateStatus(projectId, status);
+		projectDao.updateStatus(projectId, status).subscribe();
 		return null;
 	}
 
 	@Override
 	public Mono<Void> requestJoin(String projectId, String userId) {
-		projectDao.pushToJoinRequests(projectId, userId);
+		projectDao.pushToJoinRequests(projectId, userId).subscribe();
 		return null;
 	}
 
@@ -64,7 +64,7 @@ public class ProjectServiceImpl implements ProjectService {
 		projectDao.findById(projectId).subscribe(foundProject -> {
 			foundProject.getRequestedDevelopers().remove(userId);
 			foundProject.getDevelopers().add(userId);
-			save(foundProject);
+			save(foundProject).subscribe();
 		});
 		return null;
 	}
@@ -73,14 +73,14 @@ public class ProjectServiceImpl implements ProjectService {
 	public Mono<Void> rejectJoinRequest(String projectId, String userId) {
 		projectDao.findById(projectId).subscribe(foundProject -> {
 			foundProject.getRequestedDevelopers().remove(userId);
-			save(foundProject);
+			save(foundProject).subscribe();
 		});
 		return null;
 	}
 
 	@Override
 	public void saveAll(List<ProjectEntity> projectEntities) {
-		projectDao.saveAll(projectEntities);
+		projectDao.saveAll(projectEntities).subscribe();
 	}
 
 }

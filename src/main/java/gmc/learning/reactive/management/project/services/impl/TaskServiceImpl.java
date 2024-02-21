@@ -23,19 +23,19 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public Mono<Void> commentTask(String id, String comment) {
-		taskDao.pushToComments(id, comment);
+		taskDao.pushToComments(id, comment).subscribe();
 		return null;
 	}
 
 	@Override
 	public Mono<Void> updateStatus(String id, Boolean sttatus) {
-		taskDao.updateStatus(id, sttatus);
+		taskDao.updateStatus(id, sttatus).subscribe();
 		return null;
 	}
 
 	@Override
 	public void saveAll(List<TaskEntity> taskEntities) {
-		taskDao.saveAll(taskEntities);
+		taskDao.saveAll(taskEntities).subscribe();
 	}
 
 }

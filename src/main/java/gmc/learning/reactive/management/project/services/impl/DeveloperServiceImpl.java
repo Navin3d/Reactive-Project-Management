@@ -35,7 +35,7 @@ public class DeveloperServiceImpl implements DeveloperService {
 
 	@Override
 	public void saveAll(List<DeveloperEntity> developerEntities) {
-		developerDao.saveAll(developerEntities);
+		developerDao.saveAll(developerEntities).subscribe();
 	}
 
 }

@@ -11,11 +11,9 @@ import gmc.learning.reactive.management.project.entities.DeveloperEntity;
 import gmc.learning.reactive.management.project.entities.ProjectEntity;
 import gmc.learning.reactive.management.project.entities.TaskEntity;
 import gmc.learning.reactive.management.project.services.ProjectService;
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Slf4j
 @Service
 public class GraphQLServiceImpl implements GraphQLService {
 	
@@ -31,9 +29,6 @@ public class GraphQLServiceImpl implements GraphQLService {
 	@Override
 	public Flux<ProjectGraphModel> projects() {
 		Flux<ProjectEntity> projects = projectService.findManyByStatus(true);
-		projects.count().subscribe(count -> {
-			log.error("count: {}", count);
-		});
 		return projects.flatMap(projectToGraph);
 	}
 
@@ -70,7 +65,7 @@ public class GraphQLServiceImpl implements GraphQLService {
 			returnValue.setCreatedBy(owner);
 		});
 		Flux<DeveloperEntity> requestedUsers = developerDao.findAllById(project.getRequestedDevelopers());
-		Flux<DeveloperEntity> developers = developerDao.findAllById(project.getRequestedDevelopers());
+		Flux<DeveloperEntity> developers = developerDao.findAllById(project.getDevelopers());
 		Flux<TaskEntity> projectTasks = taskDao.findByProjectId(project.getId());		
 		Flux<ProjectGraphModel> returnFlux = Flux.zip(projectTasks.collectList(), developers.collectList(), requestedUsers.collectList()).map(tuple -> {		
 			returnValue.setTasks(tuple.getT1());
