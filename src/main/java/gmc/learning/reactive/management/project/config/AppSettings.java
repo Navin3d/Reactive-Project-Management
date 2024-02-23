@@ -13,5 +13,7 @@ public class AppSettings {
 	private Integer pageSize;
 	
 	private Boolean disableSecurity;
+	
+	private String batchFilesPath;
 
 }

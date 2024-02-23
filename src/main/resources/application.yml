@@ -1,4 +1,14 @@
 spring:
+  mail:
+    host: smtp.googlemail.com
+    port: 587
+    username: noreply.connectverse@gmail.com
+    password: yulsuctbziffnhge
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
   security:
     oauth2:
       client:
@@ -26,3 +36,4 @@ settings:
   app:
     pageSize: 10
     disableSecurity: false
+    batchFilesPath: ./batch-files/
