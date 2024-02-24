@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import gmc.learning.reactive.management.project.entities.DeveloperEntity;
 import gmc.learning.reactive.management.project.models.DeveloperModel;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RequestMapping(path = "/auth")
@@ -63,6 +65,11 @@ public class AuthController {
 	@PostMapping
 	private Mono<DeveloperModel> registerUser(@RequestBody Mono<DeveloperModel> newUser) {
 		return newUser.flatMap(authService::registerUser);
+	}
+	
+	@PostMapping(path = "/save-many")
+	private Mono<Boolean> registerManyUser(@RequestBody Flux<DeveloperEntity> newUsers) {
+		return newUsers.collectList().flatMap(authService::registerMany);
 	}
 
 	@PutMapping

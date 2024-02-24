@@ -1,7 +1,5 @@
 package gmc.learning.reactive.management.project.services.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -79,8 +77,8 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public void saveAll(List<ProjectEntity> projectEntities) {
-		projectDao.saveAll(projectEntities).subscribe();
+	public Mono<Boolean> saveAll(Iterable<ProjectEntity> projectEntities) {
+		return projectDao.saveAll(projectEntities).flatMap(data -> Mono.just(true)).next();
 	}
 
 }

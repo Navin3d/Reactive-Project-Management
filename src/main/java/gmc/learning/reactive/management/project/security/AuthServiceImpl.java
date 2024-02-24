@@ -137,5 +137,10 @@ public class AuthServiceImpl implements AuthService {
 		});
 		return returnValue;
 	}
+	
+	@Override
+	public Mono<Boolean> registerMany(Iterable<DeveloperEntity> developerEntities) {
+		return developerDao.saveAll(developerEntities).flatMap(data -> Mono.just(true)).next();
+	}
 
 }

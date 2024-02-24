@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gmc.learning.reactive.management.project.entities.TaskEntity;
 import gmc.learning.reactive.management.project.services.TaskService;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RequestMapping(path = "/task")
@@ -32,6 +33,11 @@ public class TaskController {
 	@PostMapping
 	private Mono<TaskEntity> task(@RequestBody Mono<TaskEntity> taskToAssign) {
 		return taskToAssign.flatMap(taskService::saveTask) ;
+	}
+	
+	@PostMapping(path = "/save-many")
+	private Mono<Boolean> taskMany(@RequestBody Flux<TaskEntity> tasksToAssign) {
+		return tasksToAssign.collectList().flatMap(taskService::saveAll);
 	}
 
 }

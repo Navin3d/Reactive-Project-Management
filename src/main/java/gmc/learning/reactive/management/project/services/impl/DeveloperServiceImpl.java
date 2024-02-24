@@ -1,6 +1,5 @@
 package gmc.learning.reactive.management.project.services.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +33,8 @@ public class DeveloperServiceImpl implements DeveloperService {
 	}
 
 	@Override
-	public void saveAll(List<DeveloperEntity> developerEntities) {
-		developerDao.saveAll(developerEntities).subscribe();
+	public Mono<Boolean> saveAll(Iterable<DeveloperEntity> developerEntities) {
+		return developerDao.saveAll(developerEntities).flatMap(data -> Mono.just(true)).next();
 	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gmc.learning.reactive.management.project.entities.ProjectEntity;
 import gmc.learning.reactive.management.project.services.ProjectService;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RequestMapping(path = "/project")
@@ -42,6 +43,11 @@ public class ProjectController {
 	@PostMapping
 	private Mono<ProjectEntity> save(@RequestBody Mono<ProjectEntity> newProject) {
 		return newProject.flatMap(projectService::save);
+	}
+	
+	@PostMapping(path = "/save-many")
+	private Mono<Boolean> saveMany(@RequestBody Flux<ProjectEntity> newProjects) {
+		return newProjects.collectList().flatMap(projectService::saveAll);
 	}
 	
 }
