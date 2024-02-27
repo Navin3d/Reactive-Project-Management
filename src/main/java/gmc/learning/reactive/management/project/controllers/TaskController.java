@@ -1,5 +1,7 @@
 package gmc.learning.reactive.management.project.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gmc.learning.reactive.management.project.entities.TaskEntity;
 import gmc.learning.reactive.management.project.services.TaskService;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RequestMapping(path = "/task")
@@ -36,8 +37,8 @@ public class TaskController {
 	}
 	
 	@PostMapping(path = "/save-many")
-	private Mono<Boolean> taskMany(@RequestBody Flux<TaskEntity> tasksToAssign) {
-		return tasksToAssign.collectList().flatMap(taskService::saveAll);
+	private Mono<Boolean> taskMany(@RequestBody List<TaskEntity> tasksToAssign) {
+		return taskService.saveAll(tasksToAssign);
 	}
 
 }

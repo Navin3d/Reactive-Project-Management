@@ -1,5 +1,6 @@
 package gmc.learning.reactive.management.project.security;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gmc.learning.reactive.management.project.entities.DeveloperEntity;
 import gmc.learning.reactive.management.project.models.DeveloperModel;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RequestMapping(path = "/auth")
@@ -68,8 +68,8 @@ public class AuthController {
 	}
 	
 	@PostMapping(path = "/save-many")
-	private Mono<Boolean> registerManyUser(@RequestBody Flux<DeveloperEntity> newUsers) {
-		return newUsers.collectList().flatMap(authService::registerMany);
+	private Mono<Boolean> registerManyUser(@RequestBody List<DeveloperEntity> newUsers) {
+		return authService.registerMany(newUsers);
 	}
 
 	@PutMapping
