@@ -24,7 +24,7 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
 	@Value("${settings.app.disableSecurity}")
-	private Boolean securityDisabled;
+	private Boolean disableSecurity;
 
 	@Autowired
 	private AuthConfig authConfig;
@@ -32,7 +32,7 @@ public class SecurityConfig {
 	@Bean
 	SecurityWebFilterChain springWebFilterChain(ServerHttpSecurity http, JwtTokenProvider tokenProvider,
 			AuthService authService, ReactiveAuthenticationManager reactiveAuthenticationManager) {
-		if (securityDisabled)
+		if (disableSecurity)
 			return http.cors(cors -> cors.configurationSource(corsConfigurationSource())).csrf(ServerHttpSecurity.CsrfSpec::disable).httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
 					.authenticationManager(reactiveAuthenticationManager)
 					.securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
