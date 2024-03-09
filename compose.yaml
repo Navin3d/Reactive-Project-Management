@@ -10,7 +10,7 @@ services:
       - 27017:27017
   
   validation:
-    image: 'navin3d/validation-service-reactive-project-management'
+    image: navin3d/validation-service-reactive-project-management
     restart: always
     ports:
       - 8000:8000
@@ -37,7 +37,7 @@ services:
 #      - 8080:8080
       
   react:
-    image: 'navin3d/redux-project-management'
+    image: navin3d/redux-project-management:vite
     restart: always
     ports:
       - 3000:3000
