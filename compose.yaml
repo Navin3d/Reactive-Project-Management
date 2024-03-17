@@ -16,7 +16,7 @@ services:
       - 8000:8000
 
   resume:
-    image: navin3d/resume-parser-node
+    image: navin3d/resume-parser-node:alpine
     restart: unless-stopped
     environment:
       - DATABASE_URL=mongodb://mongo:mongopw@mongodb:27017/project-management?authSource=admin
