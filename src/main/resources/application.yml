@@ -35,5 +35,14 @@ auth:
 settings:
   app:
     pageSize: 10
-    disableSecurity: false
+    disableSecurity: true
     batchFilesPath: ./batch-files/
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - prometheus
+        - beans
+        - threaddump
