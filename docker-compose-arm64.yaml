@@ -1,3 +1,4 @@
+version: "2"
 services:
   mongodb:
     image: mongo:latest
@@ -29,15 +30,15 @@ services:
     ports:
       - 3000:3000
   
-  # spring-boot:
-  #   image: navin3d/reactive-project-management
-  #   restart: unless-stopped
-  #   environment:
-  #     - SPRING_DATA_MONGODB_HOST=mongodb
-  #     - SPRING_DATA_MONGODB_DATABASE=project-management
-  #     - SPRING_DATA_MONGODB_USERNAME=mongo
-  #     - SPRING_DATA_MONGODB_PASSWORD=mongopw
-  #     - SPRING_DATA_MONGODB_AUTHENTICATIONDATABASE=admin
-  #   ports:
-  #     - 8080:8080
+  spring-boot:
+    image: navin3d/reactive-project-management
+    restart: unless-stopped
+    environment:
+      - SPRING_DATA_MONGODB_HOST=mongodb
+      - SPRING_DATA_MONGODB_DATABASE=project-management
+      - SPRING_DATA_MONGODB_USERNAME=mongo
+      - SPRING_DATA_MONGODB_PASSWORD=mongopw
+      - SPRING_DATA_MONGODB_AUTHENTICATIONDATABASE=admin
+    ports:
+      - 8080:8080
  
