@@ -26,7 +26,7 @@ services:
       
   react:
     image: navin3d/redux-project-management:vite-amd64
-    restart: always
+    restart: unless-stopped
     ports:
       - 3000:3000
   

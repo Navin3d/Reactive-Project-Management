@@ -1,4 +1,8 @@
 spring:
+  threads:
+    virtual:
+      enabled: true
+
   mail:
     host: smtp.googlemail.com
     port: 587
@@ -35,7 +39,7 @@ auth:
 settings:
   app:
     pageSize: 10
-    disableSecurity: true
+    disableSecurity: false
     batchFilesPath: ./batch-files/
     
 management:
