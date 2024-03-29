@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>gmc.project.reactive</groupId>
 	<artifactId>project-management</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<name>project</name>
 	<description>This is an Project Management Project with Spring Boot webflux</description>
 	<properties>
@@ -38,14 +38,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-registry-prometheus</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -60,7 +52,7 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
@@ -78,7 +70,6 @@
 			<version>2.0.3</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
